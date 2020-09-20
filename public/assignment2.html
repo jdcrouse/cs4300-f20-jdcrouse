@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>A WebGL Mini CAD</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      canvas {
+        border: 1px solid gray;
+      }
+    </style>
+  </head>
+  <body onload="init();render()">
+    <div class="container">
+      <h1>A WebGL Mini CAD</h1>
+      <canvas id="canvas" width="500px" height="300px"></canvas><br />
+    </div>
+    <script id="vertex-shader-2d" type="x-shader/x-vertex">
+      attribute vec2 a_coords;
+      uniform   vec2 u_resolution;
+
+      void main() {
+      vec2 zeroToOne = a_coords / u_resolution;
+      vec2 zeroToTwo = zeroToOne * 2.0;
+      vec2 minusOneToOne = zeroToTwo - 1.0;
+      vec2 clipSpace = minusOneToOne * vec2(1, -1);
+      gl_Position = vec4(clipSpace, 0, 1);
+      }
+    </script>
+    <script id="fragment-shader-2d" type="x-shader/x-fragment">
+      precision mediump float;
+      uniform vec4 u_color;
+      void main() {
+        gl_FragColor = u_color;
+      }
+    </script>
+    <script id="fragment-shader-2d" type="x-shader/x-fragment">
+      precision mediump float;
+      uniform vec4 u_color;
+      void main() {
+        gl_FragColor = u_color;
+      }
+    </script>
+    <script src="assignment2.js"></script>
+    <!-- continue your work here -->
+  </body>
+</html>
