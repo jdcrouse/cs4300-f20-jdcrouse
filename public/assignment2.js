@@ -129,3 +129,30 @@ const renderRectangle = (rectangle) => {
   // draw triangles as you consume 6 vertices
   gl.drawArrays(gl.TRIANGLES, 0, 6);
 };
+
+const addRectangle = () => {
+  let x = parseInt(document.getElementById("x").value);
+  let y = parseInt(document.getElementById("y").value);
+  const width = parseInt(document.getElementById("width").value);
+  const height = parseInt(document.getElementById("height").value);
+
+  const rectangle = {
+    type: RECTANGLE,
+    position: {
+      x: x,
+      y: y,
+    },
+    dimensions: {
+      width,
+      height,
+    },
+    color: {
+      red: Math.random(),
+      green: Math.random(),
+      blue: Math.random(),
+    },
+  };
+
+  shapes.push(rectangle);
+  render();
+};
