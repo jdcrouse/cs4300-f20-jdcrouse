@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="shaders.js"></script>
+    <script src="buffers.js"></script>
+    <script src="gl-matrix.js"></script>
+    <script src="render.js"></script>
+    <title>Title</title>
+  </head>
+  <body onload="main()">
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <script src="main.js"></script>
+  </body>
+  <script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec4 aVertexPosition;
+    attribute vec4 aVertexColor;
+
+    uniform mat4 uModelViewMatrix;
+    uniform mat4 uProjectionMatrix;
+
+    varying lowp vec4 vColor;
+
+    void main() {
+      gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+      vColor = aVertexColor;
+    }
+  </script>
+  <script id="fragment-shader" type="x-shader/x-vertex">
+    varying lowp vec4 vColor;
+    void main() {
+      gl_FragColor = vColor;
+    }
+  </script>
+</html>
