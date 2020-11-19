@@ -1,41 +1,30 @@
 const initializeBuffers = (gl) => {
   const positionBuffer = initializePositionBuffer(gl);
   const colorBuffer = initializeColorBuffer(gl);
+  const indexBuffer = initializeIndexBuffer(gl);
 
   return {
     position: positionBuffer,
     color: colorBuffer,
+    indices: indexBuffer,
   };
 };
 
 const initializePositionBuffer = (gl) => {
   const positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  const positions = [-1.0, 1.0, 1.0, 1.0, -1.0, -1.0, 1.0, -1.0];
 
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
   return positionBuffer;
 };
 
 const initializeColorBuffer = (gl) => {
-  const colors = [
-    1.0,
-    1.0,
-    1.0,
-    1.0, // vertex 0 is white
-    1.0,
-    0.0,
-    0.0,
-    1.0, // vertex 1 is red
-    0.0,
-    1.0,
-    0.0,
-    1.0, // vertex 2 is green
-    0.0,
-    0.0,
-    1.0,
-    1.0, // vertex 3 is blue
-  ];
+  let colors = [];
+
+  for (let j = 0; j < faceColors.length; ++j) {
+    const c = faceColors[j];
+    colors = colors.concat(c, c, c, c);
+  }
 
   const colorBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
@@ -43,3 +32,139 @@ const initializeColorBuffer = (gl) => {
 
   return colorBuffer;
 };
+
+const initializeIndexBuffer = (gl) => {
+  const indexBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+
+  gl.bufferData(
+    gl.ELEMENT_ARRAY_BUFFER,
+    new Uint16Array(indices),
+    gl.STATIC_DRAW
+  );
+
+  return indexBuffer;
+};
+
+const positions = [
+  -1.0,
+  -1.0,
+  1.0,
+  1.0,
+  -1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  -1.0,
+  1.0,
+  1.0,
+  -1.0,
+  -1.0,
+  -1.0,
+  -1.0,
+  1.0,
+  -1.0,
+  1.0,
+  1.0,
+  -1.0,
+  1.0,
+  -1.0,
+  -1.0,
+  -1.0,
+  1.0,
+  -1.0,
+  -1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  -1.0,
+  -1.0,
+  -1.0,
+  -1.0,
+  1.0,
+  -1.0,
+  -1.0,
+  1.0,
+  -1.0,
+  1.0,
+  -1.0,
+  -1.0,
+  1.0,
+  1.0,
+  -1.0,
+  -1.0,
+  1.0,
+  1.0,
+  -1.0,
+  1.0,
+  1.0,
+  1.0,
+  1.0,
+  -1.0,
+  1.0,
+  -1.0,
+  -1.0,
+  -1.0,
+  -1.0,
+  -1.0,
+  1.0,
+  -1.0,
+  1.0,
+  1.0,
+  -1.0,
+  1.0,
+  -1.0,
+];
+
+const faceColors = [
+  [1.0, 1.0, 1.0, 1.0],
+  [1.0, 0.0, 0.0, 1.0],
+  [0.0, 1.0, 0.0, 1.0],
+  [0.0, 0.0, 1.0, 1.0],
+  [1.0, 1.0, 0.0, 1.0],
+  [1.0, 0.0, 1.0, 1.0],
+];
+
+const indices = [
+  0,
+  1,
+  2,
+  0,
+  2,
+  3, // front
+  4,
+  5,
+  6,
+  4,
+  6,
+  7, // back
+  8,
+  9,
+  10,
+  8,
+  10,
+  11, // top
+  12,
+  13,
+  14,
+  12,
+  14,
+  15, // bottom
+  16,
+  17,
+  18,
+  16,
+  18,
+  19, // right
+  20,
+  21,
+  22,
+  20,
+  22,
+  23, // left
+];
